@@ -51,7 +51,7 @@ out/
 .vscode/        
 	</script>
 
-    <script id="build_gradle" type="text/x-dot-template">
+    <script id="build.gradle" type="text/x-dot-template">
 group '{{=it.packageName}}'
 version '{{=it.version}}'
 	 </script>
@@ -340,23 +340,23 @@ if "%OS%"=="Windows_NT" endlocal
 :omega        
 	</script>
 
-    <script id="settings_gradle" type="text/x-dot-template">
+    <script id="settings.gradle" type="text/x-dot-template">
 rootProject.name = '{{=it.name}}'
 include '{{=it.name}}-package'
 include '{{=it.name}}-app'
 	 </script>
 
-    <script id="package_info_java" type="text/x-dot-template">
+    <script id="package-info.java" type="text/x-dot-template">
 @Package
 package {{=it.packageName}};
 
 import io.graphoenix.spi.annotation.Package;
     </script>
 
-    <script id="graphql" type="text/x-dot-template">
+    <script id=".gql" type="text/x-dot-template">
     </script>
 
-    <script id="package_build_gradle" type="text/x-dot-template">
+    <script id="package/build.gradle" type="text/x-dot-template">
 buildscript {
     repositories {
         mavenLocal()
@@ -450,7 +450,7 @@ test {
 }
 	 </script>
 
-    <script id="application_java" type="text/x-dot-template">
+    <script id="App.java" type="text/x-dot-template">
 package {{=it.packageName}};
 import io.graphoenix.spi.annotation.Application;
 
@@ -465,7 +465,7 @@ public class App {
 }
     </script>
 
-    <script id="application_conf" type="text/x-dot-template">
+    <script id="application.conf" type="text/x-dot-template">
 graphql {
   buildIntrospection = true
 }
@@ -488,7 +488,7 @@ package {
 }{{?}}
     </script>
 
-    <script id="app_build_gradle" type="text/x-dot-template">
+    <script id="app/build.gradle" type="text/x-dot-template">
 plugins {
     id 'java'
 }
@@ -581,8 +581,6 @@ test {
             <input type="checkbox" id="postgresql" value="postgresql" disabled>postgresql
             <input type="checkbox" id="mongodb" value="mongodb" disabled>mongodb
             <input type="checkbox" id="redis" value="redis" disabled>redis
-            <input type="checkbox" id="cassandra" value="cassandra" disabled>cassandra
-            <input type="checkbox" id="neo4j" value="neo4j" disabled>neo4j
         </p>
         <p>
             <label for="rabbitmq">mq:</label>
@@ -679,10 +677,10 @@ test {
         var _gitignore = doT.template(encode(document.getElementById('_gitignore').text), undefined, def);
         zip.file(".gitignore", decode(_gitignore(data)));
 
-        var build_gradle = doT.template(encode(document.getElementById('build_gradle').text), undefined, def);
+        var build_gradle = doT.template(encode(document.getElementById('build.gradle').text), undefined, def);
         zip.file("build.gradle", decode(build_gradle(data)));
 
-        var gradle_properties = doT.template(encode(document.getElementById('gradle_properties').text), undefined, def);
+        var gradle_properties = doT.template(encode(document.getElementById('gradle.properties').text), undefined, def);
         zip.file("gradle.properties", decode(gradle_properties(data)));
 
         var gradlew = doT.template(encode(document.getElementById('gradlew').text), undefined, def);
@@ -699,33 +697,38 @@ test {
         gradle_wrapper.file("gradle-wrapper.properties", decode(gradle_wrapper_properties(data)));
 
         var package = zip.folder(name + "-package");
-        var package_build_gradle = doT.template(encode(document.getElementById('package_build_gradle').text), undefined, def);
+        var package_build_gradle = doT.template(encode(document.getElementById('package/build.gradle').text), undefined, def);
         package.file("build.gradle", decode(package_build_gradle(data)));
 
         var package_java = zip.folder(name + "-package/src/main/java/" + packageName.split('.').join('/'));
-        var package_info_java = doT.template(encode(document.getElementById('package_info_java').text), undefined, def);
+        var package_info_java = doT.template(encode(document.getElementById('package-info.java').text), undefined, def);
         package_java.file("package-info.java", decode(package_info_java(data)));
 
         var package_resources_graphql = zip.folder(name + "-package/src/main/resources/graphql");
-        var graphql = doT.template(encode(document.getElementById('graphql').text), undefined, def);
+        var graphql = doT.template(encode(document.getElementById('.gql').text), undefined, def);
         package_resources_graphql.file(name + ".gql", decode(graphql(data)));
 
         var app = zip.folder(name + "-app");
-        var app_build_gradle = doT.template(encode(document.getElementById('app_build_gradle').text), undefined, def);
+        var app_build_gradle = doT.template(encode(document.getElementById('app/build.gradle').text), undefined, def);
         app.file("build.gradle", decode(app_build_gradle(data)));
 
         var app_java = zip.folder(name + "-app/src/main/java/" + packageName.split('.').join('/'));
-        var application_java = doT.template(encode(document.getElementById('application_java').text), undefined, def);
+        var application_java = doT.template(encode(document.getElementById('App.java').text), undefined, def);
         app_java.file("App.java", decode(application_java(data)));
 
         var app_resources = zip.folder(name + "-app/src/main/resources");
-        var application_conf = doT.template(encode(document.getElementById('application_conf').text), undefined, def);
+        var application_conf = doT.template(encode(document.getElementById('application.conf').text), undefined, def);
         app_resources.file("application.conf", decode(application_conf(data)));
 
         zip.generateAsync({ type: "blob" })
             .then(function (content) {
                 saveAs(content, name + ".zip");
             });
+    }
+
+    function build(templateName) {
+        var template = doT.template(encode(document.getElementById(templateName).text), undefined, def);
+        return decode(template(data));
     }
 
     function encode(text) {
