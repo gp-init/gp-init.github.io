@@ -1,0 +1,3 @@
+rootProject.name = '{{=it.name}}'
+include '{{=it.name}}-package'
+include '{{=it.name}}-app'

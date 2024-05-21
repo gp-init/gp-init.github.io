@@ -274,6 +274,13 @@ package {
         <p>
             <button onclick="generate()">generate</button>
         </p>
+        <p>
+            <label for="introspection">ui:</label>
+            <br />
+            <a href="/svelte">svelte</a>
+            <del>vue</del>
+            <del>react</del>
+        </p>
     </main>
 </body>
 
@@ -341,7 +348,7 @@ package {
         }
 
         var promise = new JSZip.external.Promise(function (resolve, reject) {
-            JSZipUtils.getBinaryContent("static.zip", function (err, data) {
+            JSZipUtils.getBinaryContent('static.zip', function (err, data) {
                 if (err) {
                     reject(err);
                 } else {
@@ -352,30 +359,30 @@ package {
 
         promise.then(JSZip.loadAsync)
             .then(function(zip) {
-                zip.file("build.gradle", build('build.gradle'));
-                zip.file("settings.gradle", build('settings.gradle'));
+                zip.file('build.gradle', build('build.gradle'));
+                zip.file('settings.gradle', build('settings.gradle'));
 
-                var package = zip.folder(name + "-package");
-                package.file("build.gradle", build('package/build.gradle'));
+                var package = zip.folder(name + '-package');
+                package.file('build.gradle', build('package/build.gradle'));
 
-                var package_java = zip.folder(name + "-package/src/main/java/" + packageName.split('.').join('/'));
-                package_java.file("package-info.java", build('package-info.java'));
+                var package_java = zip.folder(name + '-package/src/main/java/' + packageName.split('.').join('/'));
+                package_java.file('package-info.java', build('package-info.java'));
 
-                var package_resources_graphql = zip.folder(name + "-package/src/main/resources/graphql");
-                package_resources_graphql.file(name + ".gql", build('.gql'));
+                var package_resources_graphql = zip.folder(name + '-package/src/main/resources/graphql');
+                package_resources_graphql.file(name + '.gql', build('.gql'));
 
-                var app = zip.folder(name + "-app");
-                app.file("build.gradle", build('app/build.gradle'));
+                var app = zip.folder(name + '-app');
+                app.file('build.gradle', build('app/build.gradle'));
 
-                var app_java = zip.folder(name + "-app/src/main/java/" + packageName.split('.').join('/'));
-                app_java.file("App.java", build('App.java'));
+                var app_java = zip.folder(name + '-app/src/main/java/' + packageName.split('.').join('/'));
+                app_java.file('App.java', build('App.java'));
 
-                var app_resources = zip.folder(name + "-app/src/main/resources");
-                app_resources.file("application.conf", build('application.conf'));
+                var app_resources = zip.folder(name + '-app/src/main/resources');
+                app_resources.file('application.conf', build('application.conf'));
 
-                zip.generateAsync({ type: "blob" })
+                zip.generateAsync({ type: 'blob' })
                     .then(function (content) {
-                        saveAs(content, name + ".zip");
+                        saveAs(content, name + '.zip');
                     });
             });
     }

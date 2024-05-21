@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>GP Initializer</title>
+    <script src="../js/doT.min.js" type="text/javascript"></script>
+    <script src="../js/jszip.min.js" type="text/javascript"></script>
+    <script src="../js/jszip-utils.min.js" type="text/javascript"></script>
+    <script src="../js/FileSaver.min.js" type="text/javascript"></script>
+    <script src="../js/lodash.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <main>
+        <h3>Svelte UI Initializer</h3>
+        <p>
+            <label for="name">name:</label>
+            <br />
+            <input id="name" placeholder="your-project-name" type="text">
+        </p>
+        <p>
+            <label for="version">version:</label>
+            <br />
+            <input id="version" type="text" placeholder="0.0.1" value="0.0.1">
+        </p>
+        <p>
+            <button onclick="generate()">generate</button>
+        </p>
+    </main>
+</body>
+
+<script type="text/javascript">
+    var data;
+
+    function generate() {
+        var name = document.getElementById('name').value;
+        var version = document.getElementById('version').value;
+
+        if (!name) {
+            alert('name is required');
+            document.getElementById('name').focus();
+            return;
+        }
+
+        if (!version) {
+            alert('version is required');
+            document.getElementById('version').focus();
+            return;
+        }
+
+        data = {
+            name: name,
+            camelCase : _.camelCase(name),
+            upperCamelCase : _.upperFirst(_.camelCase(name)),
+            version: version
+        }
+
+        var promise = new JSZip.external.Promise(function (resolve, reject) {
+            JSZipUtils.getBinaryContent('static.zip', function (err, data) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+
+        promise.then(JSZip.loadAsync)
+            .then(function(zip) {
+                zip.file('package.json').async('text')
+                    .then(function (text) {
+                        zip.file('package.json', build(text));
+                        zip.file('codegen.ts').async('text')
+                            .then(function (text) {
+                                zip.file('codegen.ts', build(text));
+                                zip.file('src/lib/components/login/LoginForm.svelte').async('text')
+                                    .then(function (text) {
+                                        var src_lib_components_login = zip.folder('src/lib/components/login');
+                                        src_lib_components_login.file('LoginForm.svelte', build(text));
+                                        zip.file('src/lib/components/menu/SideBarMenu.svelte').async('text')
+                                            .then(function (text) {
+                                                var src_lib_components_menu = zip.folder('src/lib/components/menu');
+                                                src_lib_components_menu.file('SideBarMenu.svelte', build(text));
+                                                zip.file('src/lib/components/menu/UserMenu.svelte').async('text')
+                                                    .then(function (text) {
+                                                        src_lib_components_menu.file('UserMenu.svelte', build(text));
+                                                        zip.file('src/lib/components/settings/CurrentUserForm.svelte').async('text')
+                                                            .then(function (text) {
+                                                                var src_lib_components_settings = zip.folder('src/lib/components/settings');
+                                                                src_lib_components_settings.file('CurrentUserForm.svelte', build(text));
+                                                                zip.file('src/lib/components/settings/ResetPasswordForm.svelte').async('text')
+                                                                    .then(function (text) {
+                                                                        src_lib_components_settings.file('ResetPasswordForm.svelte', build(text));
+                                                                        zip.file('src/lib/i18n/export.ts').async('text')
+                                                                            .then(function (text) {
+                                                                                var src_lib_i18n = zip.folder('src/lib/i18n');
+                                                                                src_lib_i18n.file('export.ts', build(text));
+                                                                                zip.file('src/lib/i18n/en/app/index.ts').async('text')
+                                                                                    .then(function (text) {
+                                                                                        zip.folder('src/lib/i18n/en/' + data.camelCase).file('index.ts', build(text));
+                                                                                        zip.remove("src/lib/i18n/en/app");
+                                                                                        zip.file('src/lib/i18n/zh/app/index.ts').async('text')
+                                                                                            .then(function (text) {
+                                                                                                zip.folder('src/lib/i18n/zh/' + data.camelCase).file('index.ts', build(text));
+                                                                                                zip.remove("src/lib/i18n/zh/app");
+                                                                                                zip.file('src/routes/[lang]/(app)/+layout.svelte').async('text')
+                                                                                                    .then(function (text) {
+                                                                                                        var src_routes_lang_app = zip.folder('src/routes/[lang]/(app)');
+                                                                                                        src_routes_lang_app.file('+layout.svelte', build(text));
+                                                                                                        zip.file('src/routes/[lang]/(app)/settings/account/+page.svelte').async('text')
+                                                                                                            .then(function (text) {
+                                                                                                                var src_routes_lang_app_settings_account = zip.folder('src/routes/[lang]/(app)/settings/account');
+                                                                                                                src_routes_lang_app_settings_account.file('+page.svelte', build(text));
+                                                                                                                zip.file('src/routes/[lang]/(app)/settings/password/+page.svelte').async('text')
+                                                                                                                    .then(function (text) {
+                                                                                                                        var src_routes_lang_app_settings_password = zip.folder('src/routes/[lang]/(app)/settings/password');
+                                                                                                                        src_routes_lang_app_settings_password.file('+page.svelte', build(text));
+                                                                                                                        zip.generateAsync({ type: 'blob' })
+                                                                                                                            .then(function (content) {
+                                                                                                                                saveAs(content, name + '.zip');
+                                                                                                                            });
+                                                                                                                    });
+                                                                                                            });
+                                                                                                    });
+                                                                                            });
+                                                                                    });
+                                                                            });
+                                                                    });
+                                                            });
+                                                    });
+                                            });
+                                    });
+                            });
+                    });
+            });
+    }
+
+    function build(text) {
+        var template = doT.template(encode(text), undefined, {});
+        return decode(template(data));
+    }
+
+    function encode(text) {
+        return text.split('\n').join('\\n');
+    }
+
+    function decode(text) {
+        return text.split('\\n').join('\n');
+    }
+</script>
+
+</html>
