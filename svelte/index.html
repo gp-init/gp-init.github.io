@@ -50,8 +50,8 @@
 
         data = {
             name: name,
-            camelCase : _.camelCase(name),
-            upperCamelCase : _.upperFirst(_.camelCase(name)),
+            camelCase: _.camelCase(name),
+            upperCamelCase: _.upperFirst(_.camelCase(name)),
             version: version
         }
 
@@ -66,7 +66,7 @@
         });
 
         promise.then(JSZip.loadAsync)
-            .then(function(zip) {
+            .then(function (zip) {
                 zip.file('package.json').async('text')
                     .then(function (text) {
                         zip.file('package.json', build(text));
