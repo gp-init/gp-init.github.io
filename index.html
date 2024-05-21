@@ -3,358 +3,17 @@
 
 <head>
     <title>GP Initializer</title>
-    <script id="gradle_wrapper_properties" type="text/x-dot-template">
-distributionBase=GRADLE_USER_HOME
-distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-6.9.2-bin.zip
-zipStoreBase=GRADLE_USER_HOME
-zipStorePath=wrapper/dists
-	</script>
-
-    <script id="_gitignore" type="text/x-dot-template">
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### IntelliJ IDEA ###
-/.idea/
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/        
-	</script>
 
     <script id="build.gradle" type="text/x-dot-template">
 group '{{=it.packageName}}'
 version '{{=it.version}}'
-	 </script>
-
-    <script id="gradle_properties" type="text/x-dot-template">
-org.gradle.jvmargs=-Xmx4g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
-	</script>
-
-    <script id="gradlew" type="text/x-dot-template">
-#!/usr/bin/env sh
-
-#
-# Copyright 2015 the original author or authors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
-##############################################################################
-##
-##  Gradle start up script for UN*X
-##
-##############################################################################
-
-# Attempt to set APP_HOME
-# Resolve links: $0 may be a link
-PRG="$0"
-# Need this for relative symlinks.
-while [ -h "$PRG" ] ; do
-    ls=`ls -ld "$PRG"`
-    link=`expr "$ls" : '.*-> \(.*\)$'`
-    if expr "$link" : '/.*' > /dev/null; then
-        PRG="$link"
-    else
-        PRG=`dirname "$PRG"`"/$link"
-    fi
-done
-SAVED="`pwd`"
-cd "`dirname \"$PRG\"`/" >/dev/null
-APP_HOME="`pwd -P`"
-cd "$SAVED" >/dev/null
-
-APP_NAME="Gradle"
-APP_BASE_NAME=`basename "$0"`
-
-# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
-DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
-
-# Use the maximum available, or set MAX_FD != -1 to use that value.
-MAX_FD="maximum"
-
-warn () {
-    echo "$*"
-}
-
-die () {
-    echo
-    echo "$*"
-    echo
-    exit 1
-}
-
-# OS specific support (must be 'true' or 'false').
-cygwin=false
-msys=false
-darwin=false
-nonstop=false
-case "`uname`" in
-  CYGWIN* )
-    cygwin=true
-    ;;
-  Darwin* )
-    darwin=true
-    ;;
-  MSYS* | MINGW* )
-    msys=true
-    ;;
-  NONSTOP* )
-    nonstop=true
-    ;;
-esac
-
-CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
-
-
-# Determine the Java command to use to start the JVM.
-if [ -n "$JAVA_HOME" ] ; then
-    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
-        # IBM's JDK on AIX uses strange locations for the executables
-        JAVACMD="$JAVA_HOME/jre/sh/java"
-    else
-        JAVACMD="$JAVA_HOME/bin/java"
-    fi
-    if [ ! -x "$JAVACMD" ] ; then
-        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
-
-Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation."
-    fi
-else
-    JAVACMD="java"
-    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
-
-Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation."
-fi
-
-# Increase the maximum file descriptors if we can.
-if [ "$cygwin" = "false" -a "$darwin" = "false" -a "$nonstop" = "false" ] ; then
-    MAX_FD_LIMIT=`ulimit -H -n`
-    if [ $? -eq 0 ] ; then
-        if [ "$MAX_FD" = "maximum" -o "$MAX_FD" = "max" ] ; then
-            MAX_FD="$MAX_FD_LIMIT"
-        fi
-        ulimit -n $MAX_FD
-        if [ $? -ne 0 ] ; then
-            warn "Could not set maximum file descriptor limit: $MAX_FD"
-        fi
-    else
-        warn "Could not query maximum file descriptor limit: $MAX_FD_LIMIT"
-    fi
-fi
-
-# For Darwin, add options to specify how the application appears in the dock
-if $darwin; then
-    GRADLE_OPTS="$GRADLE_OPTS \"-Xdock:name=$APP_NAME\" \"-Xdock:icon=$APP_HOME/media/gradle.icns\""
-fi
-
-# For Cygwin or MSYS, switch paths to Windows format before running java
-if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
-    APP_HOME=`cygpath --path --mixed "$APP_HOME"`
-    CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
-
-    JAVACMD=`cygpath --unix "$JAVACMD"`
-
-    # We build the pattern for arguments to be converted via cygpath
-    ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`
-    SEP=""
-    for dir in $ROOTDIRSRAW ; do
-        ROOTDIRS="$ROOTDIRS$SEP$dir"
-        SEP="|"
-    done
-    OURCYGPATTERN="(^($ROOTDIRS))"
-    # Add a user-defined pattern to the cygpath arguments
-    if [ "$GRADLE_CYGPATTERN" != "" ] ; then
-        OURCYGPATTERN="$OURCYGPATTERN|($GRADLE_CYGPATTERN)"
-    fi
-    # Now convert the arguments - kludge to limit ourselves to /bin/sh
-    i=0
-    for arg in "$@" ; do
-        CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
-        CHECK2=`echo "$arg"|egrep -c "^-"`                                 ### Determine if an option
-
-        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition
-            eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
-        else
-            eval `echo args$i`="\"$arg\""
-        fi
-        i=`expr $i + 1`
-    done
-    case $i in
-        0) set -- ;;
-        1) set -- "$args0" ;;
-        2) set -- "$args0" "$args1" ;;
-        3) set -- "$args0" "$args1" "$args2" ;;
-        4) set -- "$args0" "$args1" "$args2" "$args3" ;;
-        5) set -- "$args0" "$args1" "$args2" "$args3" "$args4" ;;
-        6) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" ;;
-        7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
-        8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
-        9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
-    esac
-fi
-
-# Escape application args
-save () {
-    for i do printf %s\\r\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
-    echo " "
-}
-APP_ARGS=`save "$@"`
-
-# Collect all arguments for the java command, following the shell quoting and substitution rules
-eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "\"-Dorg.gradle.appname=$APP_BASE_NAME\"" -classpath "\"$CLASSPATH\"" org.gradle.wrapper.GradleWrapperMain "$APP_ARGS"
-
-exec "$JAVACMD" "$@"        
-	</script>
-
-    <script id="gradlew_bat" type="text/x-dot-template">
-@rem
-@rem Copyright 2015 the original author or authors.
-@rem
-@rem Licensed under the Apache License, Version 2.0 (the "License");
-@rem you may not use this file except in compliance with the License.
-@rem You may obtain a copy of the License at
-@rem
-@rem      https://www.apache.org/licenses/LICENSE-2.0
-@rem
-@rem Unless required by applicable law or agreed to in writing, software
-@rem distributed under the License is distributed on an "AS IS" BASIS,
-@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-@rem See the License for the specific language governing permissions and
-@rem limitations under the License.
-@rem
-
-@if "%DEBUG%" == "" @echo off
-@rem ##########################################################################
-@rem
-@rem  Gradle startup script for Windows
-@rem
-@rem ##########################################################################
-
-@rem Set local scope for the variables with windows NT shell
-if "%OS%"=="Windows_NT" setlocal
-
-set DIRNAME=%~dp0
-if "%DIRNAME%" == "" set DIRNAME=.
-set APP_BASE_NAME=%~n0
-set APP_HOME=%DIRNAME%
-
-@rem Resolve any "." and ".." in APP_HOME to make it shorter.
-for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
-
-@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
-set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
-
-@rem Find java.exe
-if defined JAVA_HOME goto findJavaFromJavaHome
-
-set JAVA_EXE=java.exe
-%JAVA_EXE% -version >NUL 2>&1
-if "%ERRORLEVEL%" == "0" goto execute
-
-echo.
-echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
-echo.
-echo Please set the JAVA_HOME variable in your environment to match the
-echo location of your Java installation.
-
-goto fail
-
-:findJavaFromJavaHome
-set JAVA_HOME=%JAVA_HOME:"=%
-set JAVA_EXE=%JAVA_HOME%/bin/java.exe
-
-if exist "%JAVA_EXE%" goto execute
-
-echo.
-echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
-echo.
-echo Please set the JAVA_HOME variable in your environment to match the
-echo location of your Java installation.
-
-goto fail
-
-:execute
-@rem Setup the command line
-
-set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
-
-
-@rem Execute Gradle
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
-
-:end
-@rem End local scope for the variables with windows NT shell
-if "%ERRORLEVEL%"=="0" goto mainEnd
-
-:fail
-rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
-rem the _cmd.exe /c_ return code!
-if  not "" == "%GRADLE_EXIT_CONSOLE%" exit 1
-exit /b 1
-
-:mainEnd
-if "%OS%"=="Windows_NT" endlocal
-
-:omega        
 	</script>
 
     <script id="settings.gradle" type="text/x-dot-template">
 rootProject.name = '{{=it.name}}'
 include '{{=it.name}}-package'
 include '{{=it.name}}-app'
-	 </script>
-
-    <script id="package-info.java" type="text/x-dot-template">
-@Package
-package {{=it.packageName}};
-
-import io.graphoenix.spi.annotation.Package;
-    </script>
-
-    <script id=".gql" type="text/x-dot-template">
-    </script>
+	</script>
 
     <script id="package/build.gradle" type="text/x-dot-template">
 buildscript {
@@ -448,44 +107,16 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-	 </script>
-
-    <script id="App.java" type="text/x-dot-template">
-package {{=it.packageName}};
-import io.graphoenix.spi.annotation.Application;
-
-import static io.graphoenix.core.bootstrap.App.APP;
-
-@Application
-public class App {
-
-    public static void main(String[] args) {
-        APP.run(args);
-    }
-}
     </script>
 
-    <script id="application.conf" type="text/x-dot-template">
-graphql {
-  buildIntrospection = true
-}
-package {
-  packageName = "{{=it.packageName}}"
-  localPackageNames = [{{?it.jsonSchema}}"io.graphoenix.jsonschema",{{?}} {{?it.introspection}}"io.graphoenix.introspection",{{?}}]
-}
-{{?it.mysql}}r2dbc {
-  driver = "mariadb"
-  database = "user"
-  user = "root"
-  password = "root"
-}{{?}}
-{{?it.rabbitmq}}rabbitmq {
-  username = "guest"
-  password = "guest"
-}{{?}}
-{{?it.gossip}}gossip {
-  port = 9090
-}{{?}}
+    <script id="package-info.java" type="text/x-dot-template">
+@Package
+package {{=it.packageName}};
+
+import io.graphoenix.spi.annotation.Package;
+    </script>
+
+    <script id=".gql" type="text/x-dot-template">
     </script>
 
     <script id="app/build.gradle" type="text/x-dot-template">
@@ -493,8 +124,8 @@ plugins {
     id 'java'
 }
 
-group 'io.graphoenix'
-version '0.0.1-SNAPSHOT'
+group '{{=it.packageName}}'
+version '{{=it.version}}'
 
 repositories {
     mavenCentral()
@@ -536,10 +167,49 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-	 </script>
+	</script>
+
+    <script id="App.java" type="text/x-dot-template">
+package {{=it.packageName}};
+import io.graphoenix.spi.annotation.Application;
+
+import static io.graphoenix.core.bootstrap.App.APP;
+
+@Application
+public class App {
+
+    public static void main(String[] args) {
+        APP.run(args);
+    }
+}
+    </script>
+
+    <script id="application.conf" type="text/x-dot-template">
+graphql {
+  buildIntrospection = true
+}
+package {
+  packageName = "{{=it.packageName}}"
+  localPackageNames = [{{?it.jsonSchema}}"io.graphoenix.jsonschema",{{?}} {{?it.introspection}}"io.graphoenix.introspection",{{?}}]
+}
+{{?it.mysql}}r2dbc {
+  driver = "mariadb"
+  database = "user"
+  user = "root"
+  password = "root"
+}{{?}}
+{{?it.rabbitmq}}rabbitmq {
+  username = "guest"
+  password = "guest"
+}{{?}}
+{{?it.gossip}}gossip {
+  port = 9090
+}{{?}}
+    </script>
 
     <script src="js/doT.min.js" type="text/javascript"></script>
     <script src="js/jszip.min.js" type="text/javascript"></script>
+    <script src="js/jszip-utils.min.js" type="text/javascript"></script>
     <script src="js/FileSaver.min.js" type="text/javascript"></script>
 </head>
 
@@ -608,6 +278,8 @@ test {
 </body>
 
 <script type="text/javascript">
+    var data;
+
     function generate() {
         var name = document.getElementById('name').value;
         var packageName = document.getElementById('packageName').value;
@@ -639,8 +311,6 @@ test {
         var postgresql = document.getElementById('postgresql').checked;
         var mongodb = document.getElementById('mongodb').checked;
         var redis = document.getElementById('redis').checked;
-        var cassandra = document.getElementById('cassandra').checked;
-        var neo4j = document.getElementById('neo4j').checked;
         var rabbitmq = document.getElementById('rabbitmq').checked;
         var kafka = document.getElementById('kafka').checked;
         var gossip = document.getElementById('gossip').checked;
@@ -649,10 +319,7 @@ test {
         var jsonSchema = document.getElementById('jsonSchema').checked;
         var admin = document.getElementById('admin').checked;
 
-        var def = {
-        };
-
-        var data = {
+        data = {
             name: name,
             packageName: packageName,
             version: version,
@@ -664,70 +331,57 @@ test {
             postgresql: postgresql,
             mongodb: mongodb,
             redis: redis,
-            cassandra: cassandra,
-            neo4j: neo4j,
             rabbitmq: rabbitmq,
             kafka: kafka,
             gossip: gossip,
-            registry: registry
+            registry: registry,
+            introspection: introspection,
+            jsonSchema: jsonSchema,
+            admin: admin
         }
 
-        var zip = new JSZip();
+        var promise = new JSZip.external.Promise(function (resolve, reject) {
+            JSZipUtils.getBinaryContent("static.zip", function (err, data) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
 
-        var _gitignore = doT.template(encode(document.getElementById('_gitignore').text), undefined, def);
-        zip.file(".gitignore", decode(_gitignore(data)));
+        promise.then(JSZip.loadAsync)
+            .then(function(zip) {
+                zip.file("build.gradle", build('build.gradle'));
+                zip.file("settings.gradle", build('settings.gradle'));
 
-        var build_gradle = doT.template(encode(document.getElementById('build.gradle').text), undefined, def);
-        zip.file("build.gradle", decode(build_gradle(data)));
+                var package = zip.folder(name + "-package");
+                package.file("build.gradle", build('package/build.gradle'));
 
-        var gradle_properties = doT.template(encode(document.getElementById('gradle.properties').text), undefined, def);
-        zip.file("gradle.properties", decode(gradle_properties(data)));
+                var package_java = zip.folder(name + "-package/src/main/java/" + packageName.split('.').join('/'));
+                package_java.file("package-info.java", build('package-info.java'));
 
-        var gradlew = doT.template(encode(document.getElementById('gradlew').text), undefined, def);
-        zip.file("gradlew", decode(gradlew(data)));
+                var package_resources_graphql = zip.folder(name + "-package/src/main/resources/graphql");
+                package_resources_graphql.file(name + ".gql", build('.gql'));
 
-        var gradlew_bat = doT.template(encode(document.getElementById('gradlew_bat').text), undefined, def);
-        zip.file("gradlew.bat", decode(gradlew_bat(data)));
+                var app = zip.folder(name + "-app");
+                app.file("build.gradle", build('app/build.gradle'));
 
-        var settings_gradle = doT.template(encode(document.getElementById('settings_gradle').text), undefined, def);
-        zip.file("settings.gradle", decode(settings_gradle(data)));
+                var app_java = zip.folder(name + "-app/src/main/java/" + packageName.split('.').join('/'));
+                app_java.file("App.java", build('App.java'));
 
-        var gradle_wrapper = zip.folder("gradle/wrapper");
-        var gradle_wrapper_properties = doT.template(encode(document.getElementById('gradle_wrapper_properties').text), undefined, def);
-        gradle_wrapper.file("gradle-wrapper.properties", decode(gradle_wrapper_properties(data)));
+                var app_resources = zip.folder(name + "-app/src/main/resources");
+                app_resources.file("application.conf", build('application.conf'));
 
-        var package = zip.folder(name + "-package");
-        var package_build_gradle = doT.template(encode(document.getElementById('package/build.gradle').text), undefined, def);
-        package.file("build.gradle", decode(package_build_gradle(data)));
-
-        var package_java = zip.folder(name + "-package/src/main/java/" + packageName.split('.').join('/'));
-        var package_info_java = doT.template(encode(document.getElementById('package-info.java').text), undefined, def);
-        package_java.file("package-info.java", decode(package_info_java(data)));
-
-        var package_resources_graphql = zip.folder(name + "-package/src/main/resources/graphql");
-        var graphql = doT.template(encode(document.getElementById('.gql').text), undefined, def);
-        package_resources_graphql.file(name + ".gql", decode(graphql(data)));
-
-        var app = zip.folder(name + "-app");
-        var app_build_gradle = doT.template(encode(document.getElementById('app/build.gradle').text), undefined, def);
-        app.file("build.gradle", decode(app_build_gradle(data)));
-
-        var app_java = zip.folder(name + "-app/src/main/java/" + packageName.split('.').join('/'));
-        var application_java = doT.template(encode(document.getElementById('App.java').text), undefined, def);
-        app_java.file("App.java", decode(application_java(data)));
-
-        var app_resources = zip.folder(name + "-app/src/main/resources");
-        var application_conf = doT.template(encode(document.getElementById('application.conf').text), undefined, def);
-        app_resources.file("application.conf", decode(application_conf(data)));
-
-        zip.generateAsync({ type: "blob" })
-            .then(function (content) {
-                saveAs(content, name + ".zip");
+                zip.generateAsync({ type: "blob" })
+                    .then(function (content) {
+                        saveAs(content, name + ".zip");
+                    });
             });
     }
 
     function build(templateName) {
-        var template = doT.template(encode(document.getElementById(templateName).text), undefined, def);
+        var template = doT.template(encode(document.getElementById(templateName).text), undefined, {});
         return decode(template(data));
     }
 
