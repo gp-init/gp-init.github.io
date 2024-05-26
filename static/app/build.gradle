@@ -15,8 +15,7 @@ dependencies {
     implementation project(':{{=it.name}}-package')
     implementation 'io.graphoenix:graphoenix-core:0.0.1-SNAPSHOT'
     {{?it.mysql}}implementation 'io.graphoenix:graphoenix-r2dbc:0.0.1-SNAPSHOT'{{?}}
-    {{?it.http}}implementation 'io.graphoenix:graphoenix-http-server:0.0.1-SNAPSHOT'
-    //implementation group: 'io.netty', name: 'netty-resolver-dns-native-macos', version: '4.1.75.Final', classifier: 'osx-aarch_64'{{?}}
+    {{?it.http}}implementation 'io.graphoenix:graphoenix-http-server:0.0.1-SNAPSHOT'{{?}}
     {{?it.grpc}}implementation 'io.graphoenix:graphoenix-grpc-server:0.0.1-SNAPSHOT'{{?}}
     {{?it.rabbitmq}}implementation 'io.graphoenix:graphoenix-rabbitmq:0.0.1-SNAPSHOT'{{?}}
     {{?it.gossip}}implementation 'io.graphoenix:graphoenix-gossip:0.0.1-SNAPSHOT'{{?}}
@@ -28,7 +27,9 @@ dependencies {
     implementation 'io.nozdormu:nozdormu-async:0.0.1-SNAPSHOT'
     implementation 'io.nozdormu:nozdormu-interceptor:0.0.1-SNAPSHOT'
     implementation 'io.nozdormu:nozdormu-config:0.0.1-SNAPSHOT'
+    
     {{?it.mysql}}implementation 'org.mariadb:r2dbc-mariadb:1.1.4'{{?}}
+    // implementation group: 'io.netty', name: 'netty-resolver-dns-native-macos', version: '4.1.75.Final', classifier: 'osx-aarch_64'   // osx required
 
     annotationProcessor project(':{{=it.name}}-package')
     annotationProcessor 'io.graphoenix:graphoenix-annotation-processor:0.0.1-SNAPSHOT'
