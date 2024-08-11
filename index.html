@@ -166,38 +166,42 @@
 
         promise.then(JSZip.loadAsync)
             .then(function (zip) {
-                zip.file('settings.gradle').async('text')
+                zip.file('build.gradle').async('text')
                     .then(function (text) {
-                        zip.file('settings.gradle', build(text));
-                        zip.file('package/build.gradle').async('text')
+                        zip.file('build.gradle', build(text));
+                        zip.file('settings.gradle').async('text')
                             .then(function (text) {
-                                var package = zip.folder(name + '-package');
-                                package.file('build.gradle', build(text));
-                                zip.file('package/src/main/java/package-info.java').async('text')
+                                zip.file('settings.gradle', build(text));
+                                zip.file('package/build.gradle').async('text')
                                     .then(function (text) {
-                                        var package_java = zip.folder(name + '-package/src/main/java/' + packageName.split('.').join('/'));
-                                        package_java.file('package-info.java', build(text));
-                                        zip.file('package/src/main/resources/graphql/package.gql').async('text')
+                                        var package = zip.folder(name + '-package');
+                                        package.file('build.gradle', build(text));
+                                        zip.file('package/src/main/java/package-info.java').async('text')
                                             .then(function (text) {
-                                                var package_resources_graphql = zip.folder(name + '-package/src/main/resources/graphql');
-                                                package_resources_graphql.file(name + '.gql', build(text));
-                                                zip.remove("package");
-                                                zip.file('app/build.gradle').async('text')
+                                                var package_java = zip.folder(name + '-package/src/main/java/' + packageName.split('.').join('/'));
+                                                package_java.file('package-info.java', build(text));
+                                                zip.file('package/src/main/resources/graphql/package.gql').async('text')
                                                     .then(function (text) {
-                                                        var app = zip.folder(name + '-app');
-                                                        app.file('build.gradle', build(text));
-                                                        zip.file('app/src/main/java/App.java').async('text')
+                                                        var package_resources_graphql = zip.folder(name + '-package/src/main/resources/graphql');
+                                                        package_resources_graphql.file(name + '.gql', build(text));
+                                                        zip.remove("package");
+                                                        zip.file('app/build.gradle').async('text')
                                                             .then(function (text) {
-                                                                var app_java = zip.folder(name + '-app/src/main/java/' + packageName.split('.').join('/'));
-                                                                app_java.file('App.java', build(text));
-                                                                zip.file('app/src/main/resources/application.conf').async('text')
+                                                                var app = zip.folder(name + '-app');
+                                                                app.file('build.gradle', build(text));
+                                                                zip.file('app/src/main/java/App.java').async('text')
                                                                     .then(function (text) {
-                                                                        var app_resources = zip.folder(name + '-app/src/main/resources');
-                                                                        app_resources.file('application.conf', build(text));
-                                                                        zip.remove("app");
-                                                                        zip.generateAsync({ type: 'blob' })
-                                                                            .then(function (content) {
-                                                                                saveAs(content, name + '.zip');
+                                                                        var app_java = zip.folder(name + '-app/src/main/java/' + packageName.split('.').join('/'));
+                                                                        app_java.file('App.java', build(text));
+                                                                        zip.file('app/src/main/resources/application.conf').async('text')
+                                                                            .then(function (text) {
+                                                                                var app_resources = zip.folder(name + '-app/src/main/resources');
+                                                                                app_resources.file('application.conf', build(text));
+                                                                                zip.remove("app");
+                                                                                zip.generateAsync({ type: 'blob' })
+                                                                                    .then(function (content) {
+                                                                                        saveAs(content, name + '.zip');
+                                                                                    });
                                                                             });
                                                                     });
                                                             });
