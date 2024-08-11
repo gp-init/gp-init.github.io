@@ -7,16 +7,16 @@ buildscript {
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id "org.graphoenix" version "0.1.1"
-{{?it.grpc}}    id 'com.google.protobuf' version '0.9.1'{{?}}
+    id "org.graphoenix" version "0.1.1"{{?it.grpc}}
+    id 'com.google.protobuf' version '0.9.1'{{?}}
 }
 
 classes.dependsOn {
-    generateGraphQLSource
-{{?it.grpc}}    generateProtobufV3{{?}}
-}
+    generateGraphQLSource{{?it.grpc}}
+    generateProtobufV3{{?}}
+}{{?it.grpc}}
 
-{{?it.grpc}}protobuf {
+protobuf {
     protoc {
         artifact = 'com.google.protobuf:protoc:3.21.7'
     }
@@ -59,23 +59,21 @@ dependencies {
     implementation 'io.nozdormu:nozdormu-inject:0.1.0'
     implementation 'io.nozdormu:nozdormu-async:0.1.0'
     implementation 'io.nozdormu:nozdormu-interceptor:0.1.0'
-    implementation 'io.nozdormu:nozdormu-config:0.1.0'
-{{?it.grpc}}
+    implementation 'io.nozdormu:nozdormu-config:0.1.0'{{?it.grpc}}
 
     runtimeOnly 'io.grpc:grpc-netty-shaded:1.52.1'
     implementation 'io.grpc:grpc-protobuf:1.52.1'
     implementation 'io.grpc:grpc-stub:1.52.1'
     implementation 'com.salesforce.servicelibs:reactor-grpc-stub:1.2.3'
-    // necessary for Java 9+
-    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'{{?}}
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'  // necessary for Java 9+{{?}}
 
     annotationProcessor 'io.graphoenix:graphoenix-annotation-processor:0.1.0'
     annotationProcessor 'io.nozdormu:nozdormu-inject:0.1.0'
     annotationProcessor 'io.nozdormu:nozdormu-async:0.1.0'
     annotationProcessor 'io.nozdormu:nozdormu-interceptor:0.1.0'
-    annotationProcessor 'io.nozdormu:nozdormu-config:0.1.0'
-
-{{?it.grpc}}    protobuf 'io.graphoenix:graphoenix-core:0.1.0'{{?}}
+    annotationProcessor 'io.nozdormu:nozdormu-config:0.1.0'{{?it.grpc}}
+    
+    protobuf 'io.graphoenix:graphoenix-core:0.1.0'{{?}}
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
