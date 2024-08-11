@@ -8,39 +8,38 @@ version '{{=it.version}}'
 repositories {
     mavenCentral()
     jcenter()
-    mavenLocal()
 }
 
 dependencies {
     implementation project(':{{=it.name}}-package')
-    implementation 'io.graphoenix:graphoenix-core:0.0.1-SNAPSHOT'
-    {{?it.mysql}}implementation 'io.graphoenix:graphoenix-r2dbc:0.0.1-SNAPSHOT'{{?}}
-    {{?it.http}}implementation 'io.graphoenix:graphoenix-http-server:0.0.1-SNAPSHOT'{{?}}
-    {{?it.grpc}}implementation 'io.graphoenix:graphoenix-grpc-server:0.0.1-SNAPSHOT'{{?}}
-    {{?it.rabbitmq}}implementation 'io.graphoenix:graphoenix-rabbitmq:0.0.1-SNAPSHOT'{{?}}
-    {{?it.gossip}}implementation 'io.graphoenix:graphoenix-gossip:0.0.1-SNAPSHOT'{{?}}
-    {{?it.jsonSchema}}implementation 'io.graphoenix:graphoenix-json-schema:0.0.1-SNAPSHOT'{{?}}
-    {{?it.introspection}}implementation 'io.graphoenix:graphoenix-introspection:0.0.1-SNAPSHOT'{{?}}
-    {{?it.admin}}implementation 'io.graphoenix:graphoenix-admin:0.0.1-SNAPSHOT'{{?}}
-
-    implementation 'io.nozdormu:nozdormu-inject:0.0.1-SNAPSHOT'
-    implementation 'io.nozdormu:nozdormu-async:0.0.1-SNAPSHOT'
-    implementation 'io.nozdormu:nozdormu-interceptor:0.0.1-SNAPSHOT'
-    implementation 'io.nozdormu:nozdormu-config:0.0.1-SNAPSHOT'
+    implementation 'io.graphoenix:graphoenix-core:0.1.0'
+{{?it.mysql}}    implementation 'io.graphoenix:graphoenix-r2dbc:0.1.0'{{?}}
+{{?it.http}}    implementation 'io.graphoenix:graphoenix-http-server:0.1.1'{{?}}
+{{?it.grpc}}    implementation 'io.graphoenix:graphoenix-grpc-server:0.1.1'{{?}}
+{{?it.rabbitmq}}    implementation 'io.graphoenix:graphoenix-rabbitmq:0.1.0'{{?}}
+{{?it.gossip}}    implementation 'io.graphoenix:graphoenix-gossip:0.1.0'{{?}}
+{{?it.jsonSchema}}    implementation 'io.graphoenix:graphoenix-json-schema:0.1.0'{{?}}
+{{?it.introspection}}    implementation 'io.graphoenix:graphoenix-introspection:0.1.0'{{?}}
+{{?it.admin}}    implementation 'io.graphoenix:graphoenix-admin:0.1.1'{{?}}
+    implementation 'io.nozdormu:nozdormu-inject:0.1.0'
+    implementation 'io.nozdormu:nozdormu-async:0.1.0'
+    implementation 'io.nozdormu:nozdormu-interceptor:0.1.0'
+    implementation 'io.nozdormu:nozdormu-config:0.1.0'
+    // osx required
+//  implementation group: 'io.netty', name: 'netty-resolver-dns-native-macos', version: '4.1.75.Final', classifier: 'osx-aarch_64'
     
-    {{?it.mysql}}implementation 'org.mariadb:r2dbc-mariadb:1.1.4'{{?}}
-    // implementation group: 'io.netty', name: 'netty-resolver-dns-native-macos', version: '4.1.75.Final', classifier: 'osx-aarch_64'   // osx required
+{{?it.mysql}}    runtimeOnly 'org.mariadb:r2dbc-mariadb:1.1.4'{{?}}
 
     annotationProcessor project(':{{=it.name}}-package')
-    annotationProcessor 'io.graphoenix:graphoenix-annotation-processor:0.0.1-SNAPSHOT'
-    {{?it.mysql}}annotationProcessor 'io.graphoenix:graphoenix-sql:0.0.1-SNAPSHOT'{{?}}
-    {{?it.grpc}}annotationProcessor 'io.graphoenix:graphoenix-grpc-server:0.0.1-SNAPSHOT'{{?}}
-    {{?it.gossip}}annotationProcessor 'io.graphoenix:graphoenix-gossip:0.0.1-SNAPSHOT'{{?}}
-    {{?it.jsonSchema}}annotationProcessor 'io.graphoenix:graphoenix-json-schema:0.0.1-SNAPSHOT'{{?}}
-    {{?it.introspection}}annotationProcessor 'io.graphoenix:graphoenix-introspection:0.0.1-SNAPSHOT'{{?}}
+    annotationProcessor 'io.graphoenix:graphoenix-annotation-processor:0.1.0'
+{{?it.mysql}}    annotationProcessor 'io.graphoenix:graphoenix-sql:0.1.0'{{?}}
+{{?it.grpc}}    annotationProcessor 'io.graphoenix:graphoenix-grpc-server:0.1.1'{{?}}
+{{?it.gossip}}    annotationProcessor 'io.graphoenix:graphoenix-gossip:0.1.0'{{?}}
+{{?it.jsonSchema}}    annotationProcessor 'io.graphoenix:graphoenix-json-schema:0.1.0'{{?}}
+{{?it.introspection}}    annotationProcessor 'io.graphoenix:graphoenix-introspection:0.1.0'{{?}}
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 }
 
 test {

@@ -1,2 +1,0 @@
-group '{{=it.packageName}}'
-version '{{=it.version}}'
