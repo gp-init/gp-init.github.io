@@ -7,18 +7,18 @@ type JsonWebToken = import('@graphace/commons').JsonWebToken
 // See https://kit.svelte.dev/docs/typescript
 // for information about these interfaces
 declare namespace App {
-	interface Locals {
-		locale: Locales
-		LL: TranslationFunctions
-		jwt?: JsonWebToken;
-	}
-	interface Session {
-		token: string | undefined;
-		locale: Locales
-	}
-	interface PageData {
-	}
+    interface Locals {
+        locale: Locales
+        LL: TranslationFunctions
+        jwt?: JsonWebToken;
+    }
+    interface Session {
+        token: string | undefined;
+        locale: Locales
+    }
+    interface PageData {
+    }
 
-	interface Platform {
-	}
+    interface Platform {
+    }
 }

@@ -1,6 +1,6 @@
-import type { NamespaceGraphenceTranslation } from '../../i18n-types'
+import type { Namespace{{=it.upperCamelCase}}Translation } from '../../i18n-types'
 
-const zh: NamespaceGraphenceTranslation = {
+const zh: Namespace{{=it.upperCamelCase}}Translation = {
     login: {
         detail: "全栈GraphQL开发平台, 基于GraphQL Svelte 响应式Java",
         account: "账号",
