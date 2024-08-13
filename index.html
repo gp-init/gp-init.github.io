@@ -201,10 +201,24 @@
                                                                             .then(function (text) {
                                                                                 var app_resources = zip.folder(name + '-app/src/main/resources');
                                                                                 app_resources.file('application.conf', build(text));
-                                                                                zip.remove("app");
-                                                                                zip.generateAsync({ type: 'blob' })
-                                                                                    .then(function (content) {
-                                                                                        saveAs(content, name + '.zip');
+                                                                                zip.file('app/src/main/resources/model.conf').async('text')
+                                                                                    .then(function (text) {
+                                                                                        if (security) {
+                                                                                            app_resources.file('model.conf', build(text));
+                                                                                        }
+                                                                                        zip.file('app/src/main/resources/tinylog.properties').async('text')
+                                                                                            .then(function (text) {
+                                                                                                app_resources.file('tinylog.properties', build(text));
+                                                                                                zip.file('app/src/main/resources/banner.txt').async('text')
+                                                                                                    .then(function (text) {
+                                                                                                        app_resources.file('banner.txt', build(text));
+                                                                                                        zip.remove("app");
+                                                                                                        zip.generateAsync({ type: 'blob' })
+                                                                                                            .then(function (content) {
+                                                                                                                saveAs(content, name + '.zip');
+                                                                                                            });
+                                                                                                    });
+                                                                                            });
                                                                                     });
                                                                             });
                                                                     });

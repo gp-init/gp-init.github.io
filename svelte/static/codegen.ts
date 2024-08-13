@@ -30,6 +30,7 @@ const config: CodegenConfig = {
             plugins: ['graphace-codegen'],
             presetConfig: {
                 appName: '{{=it.name}}',
+                i18nDescription: '{{=it.language}}',
                 useAuth: true,
                 builder: {
                     objects: [

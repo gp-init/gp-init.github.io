@@ -3,6 +3,7 @@
 
 <head>
     <title>GP Initializer</title>
+    <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
     <script src="../js/doT.min.js" type="text/javascript"></script>
     <script src="../js/jszip.min.js" type="text/javascript"></script>
     <script src="../js/jszip-utils.min.js" type="text/javascript"></script>
@@ -24,6 +25,12 @@
             <input id="version" type="text" placeholder="0.0.1" value="0.0.1">
         </p>
         <p>
+            <label for="language">language:</label>
+            <br />
+            <input id="language" type="text" placeholder="en" value="en">
+        </p>
+
+        <p>
             <button onclick="generate()">generate</button>
         </p>
     </main>
@@ -40,9 +47,16 @@
         document.getElementById('version').value = urlParams.get('version')
     }
 
+    if (window.navigator.language.indexOf('-') !== -1) {
+        document.getElementById('language').value = window.navigator.language.split('-')[0];
+    } else {
+        document.getElementById('language').value = window.navigator.language;
+    }
+
     function generate() {
         var name = document.getElementById('name').value;
         var version = document.getElementById('version').value;
+        var language = document.getElementById('language').value;
 
         if (!name) {
             alert('name is required');
@@ -60,7 +74,8 @@
             name: name,
             camelCase: _.camelCase(name),
             upperCamelCase: _.upperFirst(_.camelCase(name)),
-            version: version
+            version: version,
+            language: language
         }
 
         var promise = new JSZip.external.Promise(function (resolve, reject) {

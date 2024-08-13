@@ -11,9 +11,9 @@ plugins {
     id 'com.google.protobuf' version '0.9.1'{{?}}
 }
 
-classes.dependsOn {
-    generateGraphQLSource{{?it.grpc}}
-    generateProtobufV3{{?}}
+classes {
+    dependsOn generateGraphQLSource{{?it.grpc}}
+    dependsOn generateProtobufV3{{?}}
 }{{?it.grpc}}
 
 protobuf {
