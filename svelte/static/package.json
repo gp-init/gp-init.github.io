@@ -38,7 +38,7 @@
         "@graphace/commons": "^0.1.0",
         "@graphace/graphql": "^0.1.0",
         "@graphace/ui": "^0.1.0",
-        "@graphace/ui-graphql": "^0.1.0"
+        "@graphace/ui-graphql": "^0.1.1"
     },
     "devDependencies": {
         "@graphql-codegen/cli": "^3.3.1",
