@@ -16,6 +16,7 @@
         "dist"
     ],
     "scripts": {
+        "prepare": "houdini pull-schema && graphql-codegen && svelte-kit sync",
         "dev": "concurrently --kill-others \"vite dev\" \"typesafe-i18n\"",
         "build": "tsx src/lib/i18n/import.ts && vite build",
         "build:package": "tsx src/lib/i18n/export.ts && vite build && npm run package",
@@ -63,7 +64,7 @@
         "daisyui": "^3.9.4",
         "date-fns": "^2.30.0",
         "dotenv": "^16.4.5",
-        "graphace-codegen": "^0.1.1",
+        "graphace-codegen": "^0.1.2",
         "graphace-codegen-commons": "^0.1.1",
         "graphace-codegen-preset": "^0.1.1",
         "graphql": "^16.9.0",
