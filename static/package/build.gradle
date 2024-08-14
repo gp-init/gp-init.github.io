@@ -57,10 +57,10 @@ repositories {
 dependencies {
     implementation 'org.graphoenix:graphoenix-core:0.1.1'
     implementation 'org.graphoenix:graphoenix-structure:0.1.1'
-    implementation 'org.graphoenix:nozdormu-inject:0.1.1'
-    implementation 'org.graphoenix:nozdormu-async:0.1.1'
-    implementation 'org.graphoenix:nozdormu-interceptor:0.1.1'
-    implementation 'org.graphoenix:nozdormu-config:0.1.1'{{?it.security}}
+    implementation 'org.graphoenix:nozdormu-inject:0.1.0'
+    implementation 'org.graphoenix:nozdormu-async:0.1.0'
+    implementation 'org.graphoenix:nozdormu-interceptor:0.1.0'
+    implementation 'org.graphoenix:nozdormu-config:0.1.0'{{?it.security}}
     implementation 'org.graphoenix:graphence-core:0.1.1'{{?}}{{?it.grpc}}
 
     runtimeOnly 'io.grpc:grpc-netty-shaded:1.52.1'
@@ -71,10 +71,10 @@ dependencies {
 
     annotationProcessor 'org.graphoenix:graphoenix-annotation-processor:0.1.1'
     annotationProcessor 'org.graphoenix:graphoenix-structure:0.1.1'
-    annotationProcessor 'org.graphoenix:nozdormu-inject:0.1.1'
-    annotationProcessor 'org.graphoenix:nozdormu-async:0.1.1'
-    annotationProcessor 'org.graphoenix:nozdormu-interceptor:0.1.1'
-    annotationProcessor 'org.graphoenix:nozdormu-config:0.1.1'{{?it.security}}
+    annotationProcessor 'org.graphoenix:nozdormu-inject:0.1.0'
+    annotationProcessor 'org.graphoenix:nozdormu-async:0.1.0'
+    annotationProcessor 'org.graphoenix:nozdormu-interceptor:0.1.0'
+    annotationProcessor 'org.graphoenix:nozdormu-config:0.1.0'{{?it.security}}
     annotationProcessor 'org.graphoenix:graphence-core:0.1.1'{{?}}{{?it.grpc}}
     
     protobuf 'org.graphoenix:graphoenix-core:0.1.1'
