@@ -55,13 +55,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.graphoenix:graphoenix-core:0.1.2'
-    implementation 'org.graphoenix:graphoenix-structure:0.1.2'
+    implementation 'org.graphoenix:graphoenix-core:0.1.3'
+    implementation 'org.graphoenix:graphoenix-structure:0.1.3'
     implementation 'org.graphoenix:nozdormu-inject:0.1.0'
     implementation 'org.graphoenix:nozdormu-async:0.1.0'
     implementation 'org.graphoenix:nozdormu-interceptor:0.1.0'
     implementation 'org.graphoenix:nozdormu-config:0.1.0'{{?it.security}}
-    implementation 'org.graphoenix:graphence-core:0.1.2'{{?}}{{?it.grpc}}
+    implementation 'org.graphoenix:graphence-core:0.1.3'{{?}}{{?it.grpc}}
 
     runtimeOnly 'io.grpc:grpc-netty-shaded:1.52.1'
     implementation 'io.grpc:grpc-protobuf:1.52.1'
@@ -69,17 +69,17 @@ dependencies {
     implementation 'com.salesforce.servicelibs:reactor-grpc-stub:1.2.3'
     compileOnly 'org.apache.tomcat:annotations-api:6.0.53'  // necessary for Java 9+{{?}}
 
-    annotationProcessor 'org.graphoenix:graphoenix-annotation-processor:0.1.2'
-    annotationProcessor 'org.graphoenix:graphoenix-structure:0.1.2'
+    annotationProcessor 'org.graphoenix:graphoenix-annotation-processor:0.1.3'
+    annotationProcessor 'org.graphoenix:graphoenix-structure:0.1.3'
     annotationProcessor 'org.graphoenix:nozdormu-inject:0.1.0'
     annotationProcessor 'org.graphoenix:nozdormu-async:0.1.0'
     annotationProcessor 'org.graphoenix:nozdormu-interceptor:0.1.0'
     annotationProcessor 'org.graphoenix:nozdormu-config:0.1.0'{{?it.security}}
-    annotationProcessor 'org.graphoenix:graphence-core:0.1.2'{{?}}{{?it.grpc}}
+    annotationProcessor 'org.graphoenix:graphence-core:0.1.3'{{?}}{{?it.grpc}}
     
-    protobuf 'org.graphoenix:graphoenix-core:0.1.2'
-    protobuf 'org.graphoenix:graphoenix-structure:0.1.2'{{?it.security}}
-    protobuf 'org.graphoenix:graphence-core:0.1.2'{{?}}{{?}}
+    protobuf 'org.graphoenix:graphoenix-core:0.1.3'
+    protobuf 'org.graphoenix:graphoenix-structure:0.1.3'{{?it.security}}
+    protobuf 'org.graphoenix:graphence-core:0.1.3'{{?}}{{?}}
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
